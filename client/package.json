@@ -20,7 +20,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy":"https://bn-data.vercel.app",
+  "proxy":"https://black-novel-server.vercel.app",
   "eslintConfig": {
     "extends": [
       "react-app",
