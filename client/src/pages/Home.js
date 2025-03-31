@@ -57,8 +57,8 @@ import WindowSize from '../components/WindowSize';
         />
       )))}
       
-          <div className="grid container mx-auto pt-40 p-8 grid-cols-1 gap-y-8 xl:grid-cols-2 xl:gap-x-16">
-            <div className="mx-auto xl:mr-11 h-80">
+          <div className="grid container mx-auto pt-20 p-8 grid-cols-1 gap-y-8 xl:grid-cols-2 xl:gap-x-16">
+            <div className="mx-auto xl:mr-11 h-80 pt-20">
               <h2 className="isolate text-3xl font-bold sm:text-4xl [text-shadow:_1px_0_4px_rgb(255_255_255_/_0.8)]">{storyID == -1 ? coverplaceholder.title : data[storyID].title}</h2>
                 <div style={{width:`${size.width > 614 ? '600px':'auto'}`}} className="isolate rounded-xl bg-white/70 shadow-lg ring-1 ring-black/5 mx-auto mt-5 p-5">
                   <p  align="justify">
@@ -106,7 +106,7 @@ import WindowSize from '../components/WindowSize';
             </div>
             
             {/* statistics here */}
-            <div className='mx-auto'>
+            <div className='mx-auto pt-10'>
             
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                
