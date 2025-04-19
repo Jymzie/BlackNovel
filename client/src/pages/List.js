@@ -63,8 +63,10 @@ var theEvent = new EventEmitter();
   
  }
  function WikiList(){
-    const data = [{story:'Coma', characters:["Kalisto Lytcaster", 'Kassidy Vanguinii', 'Wigen Tales', 'John Veils']},
-    {story:'The Dark Child', characters:["Luchifer Celeste Forbes", 'Gregore Mortan', 'Monika Remitana', 'Psymon Don Miljeste']}]
+    const data = [{story:'Coma', characters:["Kalisto Lytcaster", 'Kassidy Vanguinii', 'Wigen Tales', 'John Veils', 'Nero', 'Tomoka']},
+    {story:'The Dark Child', characters:["Luchifer Arba", 'Geanne Mortan', 'Monika', 'Psymon Don Miljeste', 'Sample', 'Sample1']},
+    {story:'Colors N Shadows', characters:['Jymz Starstrife', 'Doctor Mideus']},
+    {story:'!=', characters:['Yuki Touma', 'Jinxo', 'Aubry']}]
     const [contents, SetContent] = useState(data)
     theEvent.on('/listSearch',function (val){
       let search = data.map(rec => { return{story:rec.story, 

@@ -15,7 +15,7 @@ import WindowSize from '../components/WindowSize';
   //data
   const data = useContext(GlobalContext)
   const {type} = useOrientation()
-  const coverplaceholder = { id: -1, title: 'Lorem Ipsum', summary:' Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut vero aliquid sint distinctio iure ipsum cupiditate? Quis, odit assumenda? Deleniti quasi inventore, libero reiciendis minima aliquid tempora. Obcaecati, autem.' }
+  const coverplaceholder = { id: -1, title: 'Black Novel', summary:'Rich from thy own story...' }
   var [storyID, SetStory] = useState(-1);
   const [displaynov, SetNov] = useState(data)
   
