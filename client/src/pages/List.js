@@ -10,6 +10,7 @@ import GlobalContext from '../GlobalContext';
 var EventEmitter = require("events").EventEmitter;
 var theEvent = new EventEmitter();
 
+// ANCHOR Main
  function Main() {
    const path =window.location.pathname
   return (
@@ -37,6 +38,7 @@ var theEvent = new EventEmitter();
   );
  }
 
+ //ANCHOR Novel List
  function NovelList(){
     const data = useContext(GlobalContext)
     const [displaynov, SetNov] = useState(data)
@@ -62,11 +64,13 @@ var theEvent = new EventEmitter();
   )
   
  }
+
+ //ANCHOR Wiki List
  function WikiList(){
-    const data = [{story:'Coma', characters:["Kalisto Lytcaster", 'Kassidy Vanguinii', 'Wigen Tales', 'John Veils', 'Nero', 'Tomoka']},
-    {story:'The Dark Child', characters:["Luchifer Arba", 'Geanne Mortan', 'Monika', 'Psymon Don Miljeste', 'Sample', 'Sample1']},
-    {story:'Colors N Shadows', characters:['Jymz Starstrife', 'Doctor Mideus']},
-    {story:'!=', characters:['Yuki Touma', 'Jinxo', 'Aubry']}]
+  const data = [{story:'Coma', characters:["Kalisto Lytcaster", 'Kassidy Vanguinii', 'Wigen Tales', 'John Veils', 'Nero', 'Tomoka']},
+  {story:'The Dark Child', characters:["Luchifer Arba", 'Geanne Mortan', 'Monika', 'Psymon Don Miljeste', 'Sample', 'Sample1']},
+  {story:'Colors N Shadows', characters:['Jymz Starstrife', 'Doctor Mideus']},
+  {story:'!=', characters:['Yuki Touma', 'Jinxo', 'Aubry']}]
     const [contents, SetContent] = useState(data)
     theEvent.on('/listSearch',function (val){
       let search = data.map(rec => { return{story:rec.story, 

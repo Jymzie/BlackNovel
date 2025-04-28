@@ -29,6 +29,7 @@ function ToTop(){
 
 }
 
+// NOTE Detect Story through url parameter
  function History(){
   const params = PARAMS()
   const navigate = useNavigate()
@@ -54,6 +55,8 @@ function ToTop(){
  
 
  }
+
+ //  ANCHOR NextPrev
  function NextPrev(){
   const params = PARAMS()
   return(
@@ -70,6 +73,7 @@ function ToTop(){
   )
  }
 
+//  ANCHOR Main
  function Main() {
     
    
@@ -98,6 +102,8 @@ function ToTop(){
     
   );
  }
+
+ //  ANCHOR Read
  function Read(){
   
   
@@ -107,15 +113,23 @@ function ToTop(){
     const filternovel = data.filter(rec => rec.title == params.title)
     const filterchapter = filternovel[0].chapters.filter(chap => chap.ch == params.ch)
     const novel = filterchapter[0]
+    console.log(novel)
   return(
 <div>
+
     <dd className="text-4xl font-extrabold mb-10 md:text-5xl text-center">
         Chapter {params.ch}: {novel.title}
     </dd>
     {novel.content.map((item,i) => (
-        <p key={i} style={{fontStyle:`${item.includes('<italic>') ? 'italic':''}`}} align="justify" className="mt-4 text-gray-600">
+      <div key={i}>
+             <p  style={{fontStyle:`${item.includes('<italic>') ? 'italic':''}`}} align="justify" className="mt-4 text-gray-600">
             {item.replace(/<italic>/g, "")}
         </p>
+        {novel.screenshots[i] != undefined && 
+          <img style={{width:700}} className="p-2 mx-auto" alt='sample' src={novel.screenshots[i]+'.jpg'}/>}
+        
+      </div>
+   
     ))}
   </div>
   )

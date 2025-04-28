@@ -1,5 +1,5 @@
 
-import React, { useState, CSSProperties, useEffect } from 'react'
+import React, { useState, CSSProperties, useEffect, useRef } from 'react'
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import { useTransition, animated, AnimatedProps, useSpringRef } from '@react-spring/web'
@@ -11,20 +11,57 @@ import styles from './styles.module.css';
 import WindowSize from '../components/WindowSize';
 
 
+
+
  function App() {
   //data
   const data = useContext(GlobalContext)
   const {type} = useOrientation()
-  const coverplaceholder = { id: -1, title: 'Black Novel', summary:'Rich from thy own story...' }
+  const coverplaceholder = { id: -1, title: 'Black Novel', summary:"A Noble who's rich from thy own stories..." }
   var [storyID, SetStory] = useState(-1);
   const [displaynov, SetNov] = useState(data)
   
-  //method
-  // function SetStory(item){
-    // setTitle(item.title)
-    // setSummary(item.summary)
-  //   setbg(item.id)
-  // }
+ 
+  const audioRef = useRef(null);
+  //NOTE old to new comparison sample
+  // const OldStoryID = useRef();
+  // useEffect(() => {
+  //   if (OldStoryID.current !== storyID) {
+  //     // Handle value change
+  //     console.log('Changed from:', OldStoryID.current, 'to:', storyID);
+  //     OldStoryID.current = storyID;
+  //     audioRef.current = null;
+  //   }
+  // }, [storyID]);
+
+  //NOTE For Audio
+  useEffect(() => {
+    audioRef.current.pause();
+    if(storyID != -1){
+      
+      audioRef.current = new Audio(data[storyID].sound);
+    
+      //NOTE - Audio error handler
+      const playPromise = audioRef.current.play();
+      if (playPromise) {
+        playPromise
+          .catch(error => {
+            if (error.name === 'NotAllowedError') {
+              console.debug('Playback prevented by browser policy');
+            } else if (error.name === 'AbortError') {
+              console.debug('Playback interrupted by pause');
+            } else {
+              console.debug('Unknown error:', error);
+            }
+          });
+      }
+      
+    }
+
+    
+  });
+
+
 
     function mSearch(val){
       let search = data.filter(rec => rec.title.toUpperCase().includes(val.toUpperCase()) )
@@ -44,9 +81,9 @@ import WindowSize from '../components/WindowSize';
     // FIXME  not compatible to other monoitor screen?
     <div style={{top:'0',bottom:'0'}}>
       <div className='bg-gradient-to-bl from-slate-600 to-slate-50'>
-       {/* {size.width} */}
+       {/*ANCHOR NAV*/}
       < Navigation />
-
+        {/* ANCHOR Transition Background */}
        {size.width > 1229 && (transitions((style, i) => (
         <animated.div
           className={styles.bg}
@@ -57,63 +94,28 @@ import WindowSize from '../components/WindowSize';
         />
       )))}
       
-          <div className="grid container mx-auto pt-20 p-8 grid-cols-1 gap-y-8 xl:grid-cols-2 xl:gap-x-16">
+          <div className="grid container mx-auto pt-28 p-8 grid-cols-1 gap-y-8 xl:grid-cols-2 xl:gap-x-16">
             <div className="mx-auto xl:mr-11 h-80 pt-20">
               <h2 className="isolate text-3xl font-bold sm:text-4xl [text-shadow:_1px_0_4px_rgb(255_255_255_/_0.8)]">{storyID == -1 ? coverplaceholder.title : data[storyID].title}</h2>
+              {/* ANCHOR Title and summary */}
                 <div style={{width:`${size.width > 614 ? '600px':'auto'}`}} className="isolate rounded-xl bg-white/70 shadow-lg ring-1 ring-black/5 mx-auto mt-5 p-5">
                   <p  align="justify">
                     {storyID == -1 ? coverplaceholder.summary:data[storyID].summary}
                   </p>
                 </div>
-
-            {/* Input for search here */}
-            {/* <div className="relative mt-8">
-              <label className="sr-only"> Search </label>
-
-              <input
-                type="text"
-                id="Search"
-                placeholder="Search..."
-                onChange={val => mSearch(val.target.value)}
-                className="w-full h-12 focus:outline-none rounded-full border-none border-gray-200 pe-10 ps-4 text-sm  py-2.5 shadow-sm sm:text-sm"
-              />
-
-              <span className="absolute inset-y-0 end-0 grid w-10 place-content-center">
-                <button 
-                  type="button" 
-                  className="absolute border border-emerald-700 end-1 top-1/2 -translate-y-1/2 rounded-full bg-gray-50 p-2 text-gray-600 transition hover:text-gray-700"
-                  >
-                  <span className="sr-only">Search</span>
-
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="h-4 w-4"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                    />
-                  </svg>
-                </button>
-              </span>
-            </div> */}
               
             </div>
-            
-            {/* statistics here */}
-            <div className='mx-auto pt-10'>
+            {/* ANCHOR Audio element */}
+            <audio ref={audioRef} src={audioRef}/>
+            {/* ANCHOR Latest Story preview */}
+            <div className='mx-auto'>
             
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                
                 {displaynov.map((item,i) => (
                   <Link to={"/novel?title="+item.title} key={i}>
                     <img className="isolate rounded-lg object-cover hover:scale-105 transition ease-in-out delay-150 h-60 w-96" alt={item.title} src={item.cover+'.webp'}  
-                    onMouseEnter={() => SetStory(item.id)} onMouseLeave={() => SetStory(coverplaceholder.id)}/>
+                    onMouseEnter={() =>  SetStory(item.id)} onMouseLeave={() => SetStory(coverplaceholder.id)}/>
                   </Link>
                 ))}
                 
@@ -127,6 +129,7 @@ import WindowSize from '../components/WindowSize';
       
        
       </div>
+      {/* ANCHOR Footer */}
       <Footer/>
        {/* <div className="flex flex-col rounded-lg border border-emerald-600 hover:bg-gray-200 hover:border-gray-200 px-4 py-8 text-center">
                   <dt className="order-last text-lg font-medium text-gray-500">
