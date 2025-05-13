@@ -40,9 +40,10 @@ function ToTop(){
 
     function ChangeChapter(value){
       
-      navigate(`/read?title=COMA&&ch=${value}/6`)
+      navigate(`/read?title=COMA&&ch=${value}/`+params.total)
     }
   return(
+    
     <p className="container mx-auto mb-5 mt-32 px-2 text-white text-xl [text-shadow:_1px_0_4px_rgb(255_255_255_/_0.8)]">
     <Link to="/"><span className="hover:text-black">HOME</span></Link> / <Link to={`/novel?title=${params.title}`}>
     <span className="hover:text-black">{params.title}</span></Link> / Chapter  <select value={params.ch} onChange={e => ChangeChapter(e.target.value)} className="text-black w-14 rounded-lg">
@@ -77,27 +78,27 @@ function ToTop(){
  function Main() {
     
    
-    const pagepath = window.location.pathname
+    // const pagepath = window.location.pathname
 
   return (
-   
-    <div className='bg-gradient-to-bl from-slate-600 to-slate-50'>
-      < Navigation />
+    <div>
+      <div className='bg-gradient-to-bl from-slate-600 to-slate-50 Hminbody'>
+        < Navigation />
+          
+          
         
-        
-      
-        <div className=" container mx-auto p-8 gap-y-8 lg:items-center lg:gap-x-16">
-          <History/>
-          <div className=" rounded-xl bg-white/50 shadow-lg ring-1 ring-black/5 mx-auto pt-10 pb-20 p-8">
-            <Read/>
+          <div className=" container mx-auto p-8 gap-y-8 lg:items-center lg:gap-x-16">
+            <History/>
+            <div className=" rounded-xl bg-white/50 shadow-lg ring-1 ring-black/5 mx-auto pt-10 pb-20 p-8">
+              <Read/>
+            </div>
+            <NextPrev/>
+            
+            
           </div>
-          <NextPrev/>
-          
-          
-        </div>
-       
-        <Footer/>
-      
+         
+      </div>
+      <Footer/>
     </div>
     
   );
@@ -110,8 +111,8 @@ function ToTop(){
     const params = PARAMS()
 
     const data = useContext(GlobalContext)
-    const filternovel = data.filter(rec => rec.title == params.title)
-    const filterchapter = filternovel[0].chapters.filter(chap => chap.ch == params.ch)
+    const filternovel = data.filter(rec => rec.title === params.title)
+    const filterchapter = filternovel[0].chapters.filter(chap => chap.ch === params.ch)
     const novel = filterchapter[0]
     console.log(novel)
   return(
@@ -125,8 +126,8 @@ function ToTop(){
              <p  style={{fontStyle:`${item.includes('<italic>') ? 'italic':''}`}} align="justify" className="mt-4 text-gray-600">
             {item.replace(/<italic>/g, "")}
         </p>
-        {novel.screenshots[i] != undefined && 
-          <img style={{width:700}} className="p-2 mx-auto" alt='sample' src={novel.screenshots[i]+'.jpg'}/>}
+        {novel.screenshots[i] !== undefined && 
+          <img style={{width:700}} className="p-2 mx-auto" alt='sample' src={novel.screenshots[i]+'.webp'}/>}
         
       </div>
    

@@ -1,11 +1,13 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
+import WindowSize from '../components/WindowSize';
 
  function Footer() {
+  const size = WindowSize();
   return (
     <footer className="isolate" style={{background: 'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,0,0,1) 30%, rgba(255,255,255,1) 100%)'}}>
-    <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-screen-xl px-4 py-3 sm:px-6 lg:px-8">
       <div className="grid container grid-cols-2 sm:flex sm:items-center sm:justify-between">
         <div className="justify-center sm:justify-start">
         <Link to="/" className="">

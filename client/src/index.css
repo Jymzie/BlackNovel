@@ -16,3 +16,22 @@
     overflow-x: hidden;
   }
 }
+
+.Hminbody{
+  min-height: 54vw;
+}
+.Hminportrait{
+  min-height: 100vh;
+}
+
+.Hminbodyipad{
+  min-height: 70vw;
+}
+
+.fixedfooter{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+html::-webkit-scrollbar { display: none; }

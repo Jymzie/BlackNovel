@@ -4,25 +4,11 @@ import { useLocation } from "react-router-dom"
 import { Link } from "react-router-dom";
 import { useContext } from 'react';
 import GlobalContext from '../GlobalContext';
-import { useState, useEffect } from 'react';
 import WindowSize from '../components/WindowSize'
+import useMediaQuery from '../components/CustomSize'
 import { useWindowDimensions } from 'react-native';
 
-function useMediaQuery(query) {
-  const [matches, setMatches] = useState(false);
-  
-  useEffect(() => {
-    const mediaQuery = window.matchMedia(query);
-    setMatches(mediaQuery.matches);
-    
-    const handler = (e) => setMatches(e.matches);
-    mediaQuery.addEventListener('change', handler);
-    
-    return () => mediaQuery.removeEventListener('change', handler);
-  }, [query]);
-  
-  return matches;
-}
+
 
 
  function PARAMS(){
@@ -34,7 +20,7 @@ function useMediaQuery(query) {
  function NovelData(){
   const title = PARAMS().get("title")
   const data = useContext(GlobalContext)
-  const filternovel = data.filter(rec => rec.title == title)
+  const filternovel = data.filter(rec => rec.title === title)
   return filternovel[0]
  }
 
@@ -86,36 +72,38 @@ function useMediaQuery(query) {
                             {char: 'Sample1', cover:'Sample1',
                               trait:{Nickname:'?', Gender:'Female', 'Physique': 'Mesomorph', Height:'181 cm', Skin: 'Pale White', Hair:'Maroon', Eyes: 'l-brown r-green'},
                               desc:{Information:'test2', Appearance:'test3', Personality:'A well-mannered'}},]
-  const filtercharacter = data.filter(rec => rec.char == title)
+  const filtercharacter = data.filter(rec => rec.char === title)
   return filtercharacter[0]
  }
     
 // ANCHOR Main
  function Main() {
   const path = window.location.pathname
-  const data = path == '/novel' ? NovelData():CharacterData()
-  const title = PARAMS().get(path == '/novel' ? "title":"about")
+  const data = path === '/novel' ? NovelData():CharacterData()
+  const title = PARAMS().get(path === '/novel' ? "title":"about")
   const size = WindowSize();
   const isMidScreen = useMediaQuery('(max-width: 1300px)');
   const isXSScreen = useMediaQuery('(max-width: 600px)');
   const isSmallScreen = useMediaQuery('(max-width: 900px)');
    const { height, width } = useWindowDimensions();
   return (
-    
-    <div className='bg-gradient-to-bl from-slate-600 to-slate-50 bg-cover h-fit shrink-0'>
-      < Navigation />
-      {size.width < 940  && <div className="bg-cover bg-center" style={{backgroundImage:`url(/${data.cover}.webp)`,width:'100vw', height:'280px'}}></div>}
-        <div className="grid container mx-auto px-5 grid-cols-1 lg:grid-cols-7 lg:items-center ">
-            <div className="grid container grid-cols-1 -mb-9 gap-y-8 xl:grid-cols-1 xl:items-center lg:gap-x-5 col-span-4">
-              {size.width > 940  &&<div className="justify-center flex bg-center">
-                <img style={{height:'30vw'}} className="rounded-lg  h-fit" alt={title} src={data.cover+'.webp'}/>
-              </div>}
+    <div>
+      <div className='bg-gradient-to-bl from-slate-600 to-slate-50 bg-cover h-fit  Hminbody'>
+        < Navigation/>
+        {/* NOTE image when mobile */}
+      
+          <div className="grid mx-auto grid-cols-1 lg:grid-cols-7 lg:items-center ">
+            <div className=" mx-auto -mb-9 col-span-4">
+              <div className="justify-center flex">
+                {/* NOTE image when pc */}
+                <img style={{height: size.width > 940 ?'30vw':'300px', objectFit:size.width > 940 ? '':'cover' }} className={`rounded-lg ${size.width < 940 ? 'mt-16 w-screen bg-center': ' h-fit'}`} alt={title} src={data.cover+'.webp'}/>
+              </div>
             
               <div>
                 <h2 className="justify-center flex pt-3 text-3xl font-bold sm:text-4xl [text-shadow:_1px_0_4px_rgb(255_255_255_/_0.8)]">{title}</h2>
                 {/* <div className="isolate rounded-xl bg-white/70 shadow-lg ring-1 ring-black/5 mx-auto mt-5 p-8">
                   
-               
+              
                   {path == '/novel' ? Synopsis(data):PersonalInfo(data)}
                 
                 </div> */}
@@ -123,17 +111,17 @@ function useMediaQuery(query) {
                 
             </div>
 
-          <div className="bg-white/50 mx-auto rounded-sm mt-16 pb-5 pt-3  col-span-3 " style={{height:isSmallScreen ? '700px':'100vh',
-          width: isSmallScreen ? '100%': height > width ? '52vh':'42vw'}}>
-             
-            
-              {path == '/novel' ? <Chapters/>:<CharDetails desc={data.desc}/>}
-             
+            <div className="bg-white/50 mx-auto rounded-sm mt-16 pb-5 pt-3  col-span-3 " style={{height:isSmallScreen ? '700px':'52vw',
+              width: '100%'}}>
               
-            
+              
+                {path === '/novel' ? <Chapters/>:<CharDetails desc={data.desc}/>}
+              
+                
+              
+            </div>
           </div>
-        </div>
-     
+      </div>
       <Footer/>
     </div>
   );
@@ -147,14 +135,14 @@ function useMediaQuery(query) {
   const isMidScreen = useMediaQuery('(max-width: 1300px)');
   const isSmallScreen = useMediaQuery('(max-width: 900px)');
   return(
-    <div className="text-center mx-6">
-      <div className="isolate rounded-xl bg-white/70 shadow-lg ring-1 ring-black/5 mx-auto mb-2 p-5"> 
+    <div className="text-center mx-2">
+      <div className="isolate rounded-xl bg-white/70 shadow-lg ring-1 ring-black/5 mx-auto p-5"> 
         {Synopsis(novel)}
       </div>
-      <div className="mx-8 overflow-auto" style={{height: isSmallScreen ? '420px' :isMidScreen ? '29vw': '37vw'}}>
+      <div className="mx-3 p-3 overflow-auto bg-gray-500 rounded-md" style={{height: isSmallScreen ? '420px' :isMidScreen ? '32vw': '37vw'}}>
         {novel.chapters.map((item,i) => (
             <Link to={"/read?title="+novel.title+"&&ch="+item.ch+"/"+total} key={i}>
-                <div className="text-gray-600 mb-3 rounded-lg border border-black
+                <div className="text-gray-600 mb-3 rounded-lg border bg-gray-200 border-black
                 hover:bg-black hover:text-white p-3
                 hover:[text-shadow:_1px_0_4px_rgb(255_255_255_/_0.8)] 
                 transition-all 

@@ -44,18 +44,22 @@ function Navigation() {
             </li>
           </Link>
         ))}
-        <Link to={"/novels"}>
-          <li className='rounded-lg cursor-pointer text-white font-bold px-9 mx-1 [text-shadow:_1px_0_4px_rgb(255_255_255_/_0.8)]
-              transition ease-in-out delay-150
-              hover:bg-white hover:text-black' onMouseEnter={open ? null:handleToggle} onMouseLeave={open ? handleToggle:null}>
+       
+          <div onMouseEnter={open ? null:handleToggle} onMouseLeave={open ? handleToggle:null}> 
+                 <Link to={"/novels"}>
+                <li  className={`rounded-lg cursor-pointer font-bold px-9 mx-1 [text-shadow:_1px_0_4px_rgb(255_255_255_/_0.8)]
+              transition ease-in-out
+              hover:bg-white hover:text-black ${open ? 'bg-white text-black':'text-white'}`}>
                 Novels
+                </li>
+                </Link>
             {open && (
               <div className="absolute top-16" >
                 <ul className="w-40 h-auto shadow-md rounded-md p-1 border bg-white">
                   {global.map((item, index) => (
                     <Link to={"/novel?title="+item.title}  key={index}>
                       <li
-                        className={`relative flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100 rounded-md`}
+                        className={`font-bold relative flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100 rounded-md`}
                       >
                         {item.title}
                       </li>
@@ -64,8 +68,8 @@ function Navigation() {
                 </ul>
               </div>
             )}
-          </li>
-        </Link>
+          </div>
+      
       
       
        
@@ -119,8 +123,8 @@ function Navigation() {
         </div>
 
 
-        {/* Navigation on small screens */}
-        <ul className={!nav ? 'hidden' : 'absolute bg-zinc-200 w-full px-8'}>
+        {/*ANCHOR Navigation on small screens */}
+        <ul className={!nav ? 'hidden' :!submenu && nav ? 'md:hidden absolute bg-zinc-200 w-full px-8 overflow-auto h-44' :'absolute bg-zinc-200 w-full px-8 overflow-auto h-80'}>
         {NavText.map((item,i)=>(
           <Link to={item.to} key={i}>
             <li onClick={NavClose} className='border-b-2 border-zinc-300 w-full'>
