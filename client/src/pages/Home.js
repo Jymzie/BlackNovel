@@ -59,7 +59,7 @@ import WindowSize from '../components/WindowSize';
       
     }
     else{
-      audioRef.current.currentTime = 3;
+      audioRef.current.currentTime = 0;
     }
 
     
