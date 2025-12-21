@@ -90,7 +90,7 @@ const Wrapper = ({ children }) => {
                         `[ And here's yours. ]`,
                         'Kassidy gave back his notes.',
                         `[ Your story is so vivid that I read it from the start until the end. I'll be waiting for the next chapter by then. ]`,
-                        'Kali starts to speak seriously.'
+                        'Kali starts to speak seriously.',
                         `[ How odd? ]`,
                         `[ Hmm..? ]`,
                         `[ Everything doesn't make any sense right now and it seems you're unbothered by it. Do you perhaps know something? ]`,
