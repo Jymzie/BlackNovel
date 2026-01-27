@@ -20,7 +20,7 @@ const Wrapper = ({ children }) => {
 
  function App() {
         // ANCHOR COMA
- const novels = [{ id: 0, title: 'COMA', sound:'/BeginAgain.mp3', cover:'coma', summary:`A nihilist once said, "Lucky for those who never been born as they'll never witness reality". Kali interprets the world as a wasteland, where everything is meaningless to grow. Until the day he stumbles into something odd. A place where true isolation is present, The Hollow.`,
+ const novels = [{ id: 0, title: 'COMA', sound:'/BeginAgain.mp3', cover:'coma', summary:`For Kali, reality is a wasteland of meaningless routines—a world he only escapes through the vivid, surreal dreams he records in his notebook. But the border between his mind and the world begins to blur after a brief, tense encounter with a blue-haired stranger named Kassidy. As the city he knows starts to warp, streets fall into an impossible silence and buildings stretch toward a sky that no longer follows the rules of logic. How did he end up here? Is it because of Kassidy, or something far more ominous than he imagines?`,
   chapters:[{ch:1, title: 'Hollow', 
                   content:[`In a bleached expanse of nothingness, a man in a sharp black suit wandered aimlessly, his red hair the only shock of color against the void.`,
                         `He was adrift—clueless, exhausted, and losing track of time.`,
