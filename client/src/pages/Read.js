@@ -122,7 +122,7 @@ function ToTop(){
         Chapter {params.ch}: {novel.title}
     </dd>
     {novel.content.map((item,i) => (
-      <div key={i}>
+      <div className="select-none" key={i}>
              <p  style={{fontStyle:`${item.includes('<italic>') ? 'italic':''}`}} align="justify" className="mt-4 text-gray-600">
             {item.replace(/<italic>/g, "")}
         </p>
