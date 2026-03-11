@@ -127,7 +127,7 @@ function ToTop(){
             {item.replace(/<italic>/g, "")}
         </p>
         {novel.screenshots[i] !== undefined && 
-          <img style={{width:700}} className="p-2 mx-auto" alt='sample' src={novel.screenshots[i]+'.webp'}/>}
+          <img style={{height:400}} className="p-2 mx-auto" alt='sample' src={novel.screenshots[i]+'.webp'}/>}
         
       </div>
    

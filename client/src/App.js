@@ -34,7 +34,7 @@ const Wrapper = ({ children }) => {
                         `Kali lets out a long, slow exhale. "Whatever..."`,
                         `Once class ends, Kali heads to the library—the one place he can find peace. He notices the library has no visitors, which rarely happens. He takes a seat at a nearby table and pulls out his notebook to scribe. In the absolute stillness, he begins to weave his dreams into prose, his focus sharpening with every word.`,
                         `The heavy oak door creaks, a long, mourning sound that echoes through the empty rows. Kali doesn't look up immediately. He’s deep in the flow, his pen scratching a frantic rhythm against the paper.`,
-                        `A flash of movement catches the corner of his eye: long, flowing blue hair and skin the color of unbaked porcelain. Their eyes meet for a heartbeat. His are a flat, lightless brown—the color of parched earth—while hers are two pits of deep, impenetrable black. For a second, it’s like two voids staring into each other, before he drops his gaze back to the page.`,
+                        `flash of movement catches the corner of his eye: long, flowing blue hair and skin the color of unbaked porcelain. Their eyes meet for a heartbeat. She looks at Kali with eyes like polished steel, leaving only those sharp black centers to track his movement, while his own earthen, dead eyes offer only a fleeting glance before he drops his gaze back to the page.`,
                         `He hears the soft thump-thump of her footsteps. They don’t pass by. They stop. He can feel her shadow falling over his notebook, cooling the sunlight hitting the table.`,
                         `"Excuse me. Can I sit here?" she murmurs, her voice hovering just above a whisper.`,
                         `"… Yeah… sure," Kali mutters. He doesn’t stop writing.`,
@@ -84,7 +84,7 @@ const Wrapper = ({ children }) => {
 
 
                 ],
-                screenshots:{}
+                screenshots:{0:'KalistoLytcaster'}
         },
         
         {ch:2, title: 'The Ledger of Lost Hours', 
