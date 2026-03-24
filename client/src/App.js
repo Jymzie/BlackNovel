@@ -276,7 +276,7 @@ const Wrapper = ({ children }) => {
                         `"A proposition?" Kali repeated, his voice flat and unimpressed. "If you're hiring us just because we managed to get out, you're wasting your time. We have no idea how we did it either. So we won't be any different to the other civilians you saved."`,
                         `John lets out a short, genuine chuckle, leaning back and resting his chin on his gloved hand.`,
                         `"You’re slightly not wrong about that, Mr. Kali. Don't get me wrong—I'm not forcing the two of you to join, but I can see the potential." John taps repeatedly on his right temple. "I have an eye for people, you see."`,],
-                screenshots:{}
+                screenshots:{14:'kaliandmolay'}
         },
         {ch:5, title: 'Test', 
                 content:[' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tincidunt dolor quis euismod pellentesque. Pellentesque bibendum viverra velit. Integer dictum commodo eros. Sed euismod iaculis gravida. Phasellus pharetra arcu quis nulla placerat, sit amet cursus lectus semper. Sed molestie tellus vel purus feugiat accumsan. Morbi elementum iaculis est sit amet semper. Fusce pharetra orci at molestie semper. Mauris in tincidunt ligula, sed congue metus.',

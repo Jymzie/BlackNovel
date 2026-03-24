@@ -80,7 +80,7 @@ var theEvent = new EventEmitter();
 
  //ANCHOR Wiki List
  function WikiList(){
-   const data = [{story:'Coma', characters:["Kalisto Lytcaster", 'Kassidy Vanguinii', 'Wigen Tales', 'John Veils', 'Nero', 'Tomoka']},
+   const data = [{story:'Coma', characters:["Kalisto Lytcaster", 'Kassidy Vanguinii', 'Wigen Tales', 'John Veils', 'Dr. Nero Molay', 'Tomoka']},
   {story:'The Dark Child', characters:["Luchifer Arba", 'Geanne Mortan', 'Monika', 'Psymon Don Miljeste', 'Sample', 'Sample1']},
   {story:'Colors N Shadows', characters:['Jymz Starstrife', 'Doctor Mideus']},
   {story:'!=', characters:['Yuki Touma', 'Jinxo', 'Aubry']}]

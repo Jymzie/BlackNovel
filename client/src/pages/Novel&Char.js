@@ -48,7 +48,7 @@ import { useWindowDimensions } from 'react-native';
             {char: 'Jymz Starstrife', cover:'JymzStarstrife',
               trait:{Nickname:'?', Gender:'Female', 'Physique': 'Mesomorph', Height:'181 cm', Skin: 'Pale White', Hair:'Maroon', Eyes: 'l-brown r-green'},
               desc:{Information:'test2', Appearance:'test3', Personality:'A well-mannered'}},
-              {char: 'Nero', cover:'Nero',
+              {char: 'Dr. Nero Molay', cover:'DoctorNeroMolay',
                 trait:{Nickname:'?', Gender:'Female', 'Physique': 'Mesomorph', Height:'181 cm', Skin: 'Pale White', Hair:'Maroon', Eyes: 'l-brown r-green'},
                 desc:{Information:'test2', Appearance:'test3', Personality:'A well-mannered'}},
                 {char: 'Tomoka', cover:'Tomoka',
