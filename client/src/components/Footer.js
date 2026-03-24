@@ -13,7 +13,7 @@ import WindowSize from '../components/WindowSize';
         <Link to="/" className="">
           <h2 className="text-2xl font-bold text-white lg:text-3xl  sm:text-4xl [text-shadow:_1px_0_4px_rgb(255_255_255_/_0.8)]">Black Novel</h2>
         </Link>
-        {/* <p className="text-right text-white text-xs">- Jimwell C. Punzalan</p> */}
+        <p className="text-right text-white text-xs">@Jymz</p>
         </div>
 
         <p className="mt-4 text-center text-sm text-black lg:mt-0 lg:text-right [text-shadow:_1px_0_4px_rgb(220_220_220_/_0.8)]">
