@@ -84,7 +84,7 @@ const Wrapper = ({ children }) => {
 
 
                 ],
-                screenshots:{0:'KalistoLytcaster'}
+                screenshots:{0:'whiteexpanses'}
         },
         
         {ch:2, title: 'The Ledger of Lost Hours', 
