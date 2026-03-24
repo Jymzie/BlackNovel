@@ -122,13 +122,31 @@ function ToTop(){
         Chapter {params.ch}: {novel.title}
     </dd>
     {novel.content.map((item,i) => (
-      <div className="select-none" key={i}>
-             <p  style={{fontStyle:`${item.includes('<italic>') ? 'italic':''}`}} align="justify" className="mt-4 text-gray-600">
-            {item.replace(/<italic>/g, "")}
+      <div 
+        key={i} 
+        className={`select-none grid gap-8 items-center ${
+          novel.screenshots[i] !== undefined ? 'grid-cols-1 lg:grid-cols-2' : 'grid-cols-1'
+        }`}
+      >
+        {/* Column 1: Text */}
+        <p 
+          style={{ fontStyle: item.includes('<italic>') ? 'italic' : 'normal' }} 
+          className="mt-4 text-gray-600 text-justify"
+        >
+          {item.replace(/<italic>/g, "")}
         </p>
-        {novel.screenshots[i] !== undefined && 
-          <img style={{height:400}} className="p-2 mx-auto" alt='sample' src={novel.screenshots[i]+'.webp'}/>}
-        
+
+        {/* Column 2: Screenshot */}
+        {novel.screenshots[i] !== undefined && (
+          <div className="flex justify-center">
+            <img 
+              style={{ height: 400, objectFit: 'contain' }} 
+              className="p-2" 
+              alt="sample" 
+              src={`${novel.screenshots[i]}.webp`} 
+            />
+          </div>
+        )}
       </div>
    
     ))}
