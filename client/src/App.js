@@ -84,7 +84,7 @@ const Wrapper = ({ children }) => {
 
 
                 ],
-                screenshots:{0:'whiteexpanses'}
+                screenshots:{0:'whiteexpanses', 3:'kaliwigenclassroom', 12:'kalikassidylibrary'}
         },
         
         {ch:2, title: 'The Ledger of Lost Hours', 
@@ -224,7 +224,7 @@ const Wrapper = ({ children }) => {
                         `As the orange soda falls into the bin, she lets out a short, delighted laugh—the first sound of genuine joy Kali has heard from her. She reaches into the dispenser, her face lighting up as her skin meets the frost-chilled aluminum.`,
                         `"It’s like winter," she whispers, cradling the can in both hands. "You have machines that capture the cold?"`,
                         `"Something like that," Kali mutters.  Wigen has stopped dead in his tracks a few feet away, his jaw practically hitting the floor as he watches Kali—the school’s most antisocial student—was leaning in close to a mysterious beautiful girl, his hand hovering near hers as they shared a moment over a vending machine.`],
-                screenshots:{}
+                screenshots:{1:'kalikassidyvoid'}
         },
         {ch:4, title: 'The Penulustrum', 
                 content:[`"How do I open it?" she asks, her fingers hovering over the tab.`,
