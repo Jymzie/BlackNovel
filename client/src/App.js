@@ -84,7 +84,7 @@ const Wrapper = ({ children }) => {
 
 
                 ],
-                screenshots:{0:'whiteexpanses', 3:'kaliwigenclassroom', 12:'kalikassidylibrary'}
+                screenshots:{0:'whiteexpanses', 3:'kaliwigenclassroom', 12:'kalikassidylibrary', 37:'kalihollow'}
         },
         
         {ch:2, title: 'The Ledger of Lost Hours', 
