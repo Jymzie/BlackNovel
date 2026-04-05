@@ -1,0 +1,34 @@
+.bgl {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 48vw;
+    background-size: cover;
+    background-position: center;
+    will-change: opacity;
+    z-index: 0;
+  }
+  .bgs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 1020px;
+    background-size: cover;
+    background-position: center;
+    will-change: opacity;
+    z-index: 0;
+  }
+  .bgxs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 1550px;
+    background-size: cover;
+    background-position: center;
+    will-change: opacity;
+    z-index: 0;
+  }
+  
