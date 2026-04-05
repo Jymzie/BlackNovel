@@ -1,32 +1,24 @@
-	import express from 'express';
-	import cors from 'cors';
-	import mongoose from "mongoose";
-	import dotenv from 'dotenv';
+const express = require('express');
+const cors = require('cors');
+const routes = require('./routes'); // Ensure routes.js also uses module.exports
+const dotenv = require('dotenv');
 
-	dotenv.config();
-	const app = express();
+dotenv.config();
+const app = express();
 
-	app.use(cors());
-	app.use(express.json());
+app.use(cors());
+app.use(express.json());
+// Logging Middleware
+app.use((req, res, next) => {
+    console.log(`Request received: ${req.method} ${req.url}`);
+    next();
+});
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 8080;
+    app.listen(PORT, () => console.log(`Local dev on port ${PORT}`));
+}
+// Routes
+app.use("/api", routes);
 
-
-	// Connect to MongoDB
-	const uri = process.env.MONGO_URI || 'mongodb://localhost:27017/db_name';
-
-	let db;
-	(async () => {
-	    try {
-	        let conn = await mongoose.connect(uri);
-	        db = conn.connection.db
-	        console.log('Connected to Database');
-	    } catch(error) {
-	        console.error(error);
-	    }
-	})();
-
-
-	app.get('/', async (req, res) => {
-	    let r = await db.collection("user").find().toArray();;
-	    res.send(r);
-	});
-
+// Export for Vercel
+module.exports = app;
