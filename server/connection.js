@@ -21,7 +21,7 @@ async function getDb() {
 
     await client.connect();
     cachedClient = client;
-    cachedDb = client.db("sample_db");
+    cachedDb = client.db("black_novel");
     
     console.log("Connected to MongoDB");
     return cachedDb;
