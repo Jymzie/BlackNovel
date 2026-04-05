@@ -8,15 +8,15 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-// const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080;
 // Logging Middleware
 app.use((req, res, next) => {
     console.log(`Request received: ${req.method} ${req.url}`);
     next();
 });
-// app.listen(PORT, () => {
-// 	    console.log(`Server is running on port ${PORT}`);
-// 	});
+app.listen(PORT, () => {
+	    console.log(`Server is running on port ${PORT}`);
+	});
 // Routes
 app.use("/api", routes);
 
