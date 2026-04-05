@@ -2,14 +2,15 @@ import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
-import { useContext } from 'react';
-import GlobalContext from '../GlobalContext';
 import { useOrientation } from 'react-use';
 import IsIpad from '../components/IsIpad'
+import axios from 'axios';
+import enki from '../components/Enkidu'
 
 var EventEmitter = require("events").EventEmitter;
 var theEvent = new EventEmitter();
 
+const API_URL = process.env.REACT_APP_API_BASE_URL;
 // ANCHOR Main
  function Main() {
    const path =window.location.pathname
@@ -53,7 +54,24 @@ var theEvent = new EventEmitter();
 
  //ANCHOR Novel List
  function NovelList(){
-    const data = useContext(GlobalContext)
+    
+      let [data, setContent] = useState([]);
+      useEffect(() => {
+              mGetTable();
+          }, []);
+        const mGetTable = () => {
+          // In a real app, ensure your API route starts with / if it's absolute
+          axios.get(`${API_URL}/api/vt/nov`) 
+              .then((res) => {
+                const final = enki(res.data)
+                
+                setContent(final);
+                SetNov(final);
+              })
+              .catch(err => console.error(err));
+
+              
+      };
     const [displaynov, SetNov] = useState(data)
 
     theEvent.on('/novelsSearch',function (val){
@@ -67,7 +85,7 @@ var theEvent = new EventEmitter();
     {displaynov.map((item,i) => (
       <div key={i} className="items-center justify-center text-center flex">
       <Link to={"/novel?title="+item.title} preventScrollReset >
-        <img className="rounded-lg object-cover hover:scale-105 transition ease-in-out delay-150 h-60 w-96" alt={item.title} src={item.cover+'.webp'}/>
+        <img className="rounded-lg object-cover hover:scale-105 transition ease-in-out delay-150 h-60 w-96" alt={item.title} src={item.metadata.cover+'.webp'}/>
         <h2 className="text-3xl font-bold sm:text-4xl [text-shadow:_1px_0_4px_rgb(0_0_0_/_0.8)]">{item.title}</h2>
       </Link>
        
@@ -80,14 +98,30 @@ var theEvent = new EventEmitter();
 
  //ANCHOR Wiki List
  function WikiList(){
-   const data = [{story:'Coma', characters:["Kalisto Lytcaster", 'Kassidy Vanguinii', 'Wigen Tales', 'John Veils', 'Dr. Nero Molay', 'Tomoka']},
-  {story:'The Dark Child', characters:["Luchifer Arba", 'Geanne Mortan', 'Monika', 'Psymon Don Miljeste', 'Sample', 'Sample1']},
-  {story:'Colors N Shadows', characters:['Jymz Starstrife', 'Doctor Mideus']},
-  {story:'!=', characters:['Yuki Touma', 'Jinxo', 'Aubry']}]
-    const [contents, SetContent] = useState(data)
+ const [data, SetData] = useState([])
+ const [contents, SetContent] = useState([])
+  const mGetTable = () => {
+ 
+        axios.get(`${API_URL}/api/z1/char`) 
+            .then((res) => {
+               const final = enki(res.data)
+                
+              
+                SetData(final);
+                SetContent(final);
+            })
+            .catch(err => console.error(err));
+
+            
+    };
+
+    useEffect(() => {
+        mGetTable();
+    }, []);
+
     theEvent.on('/listSearch',function (val){
-      let search = data.map(rec => { return{story:rec.story, 
-        characters:rec.characters.filter(chars => chars.toUpperCase().includes(val.toUpperCase()))}}
+      let search = data.map(rec => { return{novel_title:rec.novel_title, 
+        characters:rec.characters.filter(chars => chars.name.toUpperCase().includes(val.toUpperCase()))}}
         ).filter(index => index.characters.length !== 0)
       SetContent(search)
       theEvent.removeAllListeners();
@@ -95,14 +129,14 @@ var theEvent = new EventEmitter();
 
     return(
       <div className="grid grid-cols-1 text-center lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-y-2">
-        {contents.map((item,i) => (
+        {contents?.map((item,i) => (
           <div key={i} >
       
-            <h2 className="text-3xl mx-2 my-2 font-bold sm:text-4xl [text-shadow:_1px_0_4px_rgb(0_0_0_/_0.8)]">{item.story}</h2>
+            <h2 className="text-3xl mx-2 my-2 font-bold sm:text-4xl [text-shadow:_1px_0_4px_rgb(0_0_0_/_0.8)]">{item.novel_title}</h2>
             <ul>
-            {item.characters.map((chars,x) =>(
-              <Link to={"/wiki?about="+chars} key={x}>
-              <li className="py-1 mx-2 text-xl rounded-lg hover:bg-black hover:text-white hover:[text-shadow:_1px_0_4px_rgb(255_255_255_/_0.8)]">{chars}</li>
+            {item?.characters?.map((chars,x) =>(
+              <Link to={"/wiki?about="+chars.name} key={x}>
+              <li className="py-1 mx-2 text-xl rounded-lg hover:bg-black hover:text-white hover:[text-shadow:_1px_0_4px_rgb(255_255_255_/_0.8)]">{chars.name}</li>
               </Link>
             ))}
             </ul>

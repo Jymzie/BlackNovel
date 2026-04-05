@@ -1,19 +1,37 @@
 
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import { Link } from "react-router-dom";
-import { useContext } from 'react';
-import GlobalContext from '../GlobalContext';
 import { FaChevronDown,FaChevronUp } from 'react-icons/fa';
+import axios from 'axios';
+import enki from './Enkidu'
 
-
+const API_URL = process.env.REACT_APP_API_BASE_URL;
 function Navigation() {
     const [nav, setNav] = useState(false)
     const [submenu, setSubMenu] = useState(false)
 
     const NavTrigger = () => setNav(!nav)
     const SubTrigger = () => setSubMenu(!submenu)
-    const global = useContext(GlobalContext)
+      let [global, setContent] = useState([]);
+    useEffect(() => {
+        mGetTable();
+    }, []);
+
+      const mGetTable = () => {
+        // In a real app, ensure your API route starts with / if it's absolute
+        axios.get(`${API_URL}/api/vt/nov`) 
+            .then((res) => {
+               const final = enki(res.data)
+        
+                setContent(final);
+            })
+            .catch(err => console.error(err));
+
+            
+    };
+
+   
     const NavClose = () => {
       setNav(false);
     };

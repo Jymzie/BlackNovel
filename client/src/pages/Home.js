@@ -5,21 +5,47 @@ import Footer from "../components/Footer";
 import { useTransition, animated, AnimatedProps, useSpringRef } from '@react-spring/web'
 import {Link} from "react-router-dom";
 import { useOrientation } from 'react-use';
-import { useContext } from 'react';
-import GlobalContext from '../GlobalContext';
 import styles from './styles.module.css';
 import WindowSize from '../components/WindowSize';
+import axios from 'axios';
+import enki from '../components/Enkidu'
 
-
-
-
+const API_URL = process.env.REACT_APP_API_BASE_URL;
  function App() {
-  //data
-  const data = useContext(GlobalContext)
+  //NOTE data
+  // const data = useContext(GlobalContext)
+  let [data, setContent] = useState([]);
   const {type} = useOrientation()
-  const coverplaceholder = { id: -1, title: 'Black Novel', summary:"A novel who's rich from thy own story..." }
+  const coverplaceholder = {_id: -1, title: 'Black Novel', summary:"A novel who's rich from thy own story..." }
   var [storyID, SetStory] = useState(-1);
   const [displaynov, SetNov] = useState(data)
+  const currentStory = data?.findIndex(item => item._id === storyID) ;
+  
+  const mGetTable = () => {
+        // In a real app, ensure your API route starts with / if it's absolute
+        axios.get(`${API_URL}/api/vt/nov`) 
+            .then((res) => {
+                const final = enki(res.data)
+                setContent(final);
+                SetNov(final);
+            })
+            .catch(err => console.error(err));
+            
+    };
+
+    useEffect(() => {
+        mGetTable();
+    }, []);
+    //NOTE watcher sample
+    // useEffect(() => {
+    //   // This will run every time 'currentStory' changes
+    //   if (storyID) {
+    //     console.log("Current Story Updated:", currentStory);
+    //     console.log(storyID)
+    //     console.log(data?.findIndex(item => item._id === storyID))
+
+    //   }
+    // }, [currentStory]);
   
  
   const audioRef = useRef(null);
@@ -33,14 +59,14 @@ import WindowSize from '../components/WindowSize';
   //     audioRef.current = null;
   //   }
   // }, [storyID]);
-  const [currentSrc, setCurrentSrc] = useState(data[0].sound);
+  const [currentSrc, setCurrentSrc] = useState(data?.[0]?.metadata?.sound);
 
   //NOTE For Audio
   useEffect(() => {
     audioRef.current.pause();
     
     if(storyID !== -1){
-      setCurrentSrc(data[storyID].sound);
+      setCurrentSrc(data?.[currentStory]?.metadata?.sound);
     
       //NOTE - Audio error handler
       const playPromise = audioRef.current.play();
@@ -72,8 +98,8 @@ import WindowSize from '../components/WindowSize';
       SetNov(search)
     }
 
-    const transitions = useTransition(storyID, {
-      key: storyID,
+    const transitions = useTransition(currentStory, {
+      key: currentStory,
       from: { opacity: 0 },
       enter: { opacity: 1 },
       leave: { opacity: 0 },
@@ -93,7 +119,7 @@ import WindowSize from '../components/WindowSize';
           className={size.width > 1229 ? styles.bgl : size.width < 660 ? styles.bgxs : styles.bgs}
           style={{
             ...style,
-            backgroundImage: `url('/${i === -1 ? '' : data[i].cover}.webp')`,
+            backgroundImage: `url('/${i === -1 ? '' : data?.[i]?.metadata?.cover}.webp')`,
             backgroundAttachment: 'fixed'
           }}
         />
@@ -101,11 +127,11 @@ import WindowSize from '../components/WindowSize';
       
           <div className="grid container mx-auto pt-28 grid-cols-1 gap-y-8 xl:grid-cols-2 xl:gap-x-16">
             <div className="mx-auto xl:mr-11 h-80 pt-20">
-              <h2 className="isolate text-3xl font-bold sm:text-4xl [text-shadow:_1px_0_4px_rgb(255_255_255_/_0.8)]">{storyID === -1 ? coverplaceholder.title : data[storyID].title}</h2>
+              <h2 className="isolate text-3xl font-bold sm:text-4xl [text-shadow:_1px_0_4px_rgb(255_255_255_/_0.8)]">{storyID === -1 ? coverplaceholder.title : data?.[currentStory]?.title}</h2>
               {/* ANCHOR Title and summary */}
                 <div style={{width:`${size.width > 614 ? '600px':'auto'}`}} className="isolate rounded-xl bg-white/70 shadow-lg ring-1 ring-black/5 mx-auto mt-5 p-5">
                   <p  align="justify">
-                    {storyID === -1 ? coverplaceholder.summary:data[storyID].summary}
+                    {storyID === -1 ? coverplaceholder.summary:data?.[currentStory]?.summary}
                   </p>
                 </div>
               
@@ -119,8 +145,8 @@ import WindowSize from '../components/WindowSize';
                
                 {displaynov.map((item,i) => (
                   <Link to={"/novel?title="+item.title} key={i}>
-                    <img className="isolate rounded-lg object-cover hover:scale-105 transition ease-in-out delay-150 h-60 w-96" alt={item.title} src={item.cover+'.webp'}  
-                    onMouseEnter={() =>  SetStory(item.id)} onMouseLeave={() => SetStory(coverplaceholder.id)}/>
+                    <img className="isolate rounded-lg object-cover hover:scale-105 transition ease-in-out delay-150 h-60 w-96" alt={item.title} src={item.metadata.cover+'.webp'}  
+                    onMouseEnter={() =>  SetStory(item._id)} onMouseLeave={() => SetStory(coverplaceholder._id)}/>
                   </Link>
                 ))}
                 
