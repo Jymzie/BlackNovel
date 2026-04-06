@@ -102,7 +102,8 @@ function Main() {
             {isNovelPage ? (
               <Chapters novel={novelData} isSmallScreen={isSmallScreen} />
             ) : (
-              <CharDetails desc={data?.description} isSmallScreen={isSmallScreen} />
+              /* Use charData here instead of data */
+              <CharDetails desc={charData?.description} isSmallScreen={isSmallScreen} />
             )}
           </div>
         </div>
@@ -167,7 +168,8 @@ function CharDetails({ desc, isSmallScreen }: { desc: any, isSmallScreen: boolea
 }
 
 function Synopsis({ data }: { data: any }) {
-  return <p align="justify">{data?.summary}</p>;
+  // Use className="text-justify" instead of align="justify"
+  return <p className="text-justify">{data?.summary}</p>;
 }
 
 export default Main;

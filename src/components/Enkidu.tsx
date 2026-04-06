@@ -9,7 +9,7 @@ import CryptoJS from "crypto-js";
  * @param {string} ciphertext - The encrypted string
  * @returns {object|array} - The original data
  */
-const enki = (ciphertext) => {
+const enki = (ciphertext: string) => {
     if (!ciphertext) return null;
     let SECRET_KEY = import.meta.env.VITE_SECRET_KEY;
     // 1. Decrypt to raw bytes
