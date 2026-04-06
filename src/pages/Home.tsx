@@ -72,34 +72,24 @@ const API_URL = import.meta.env.VITE_API_BASE_URL;
 
   //NOTE For Audio
   useEffect(() => {
-    audioRef.current.pause();
-    
-    if(storyID !== -1){
-      setCurrentSrc(data?.[currentStory]?.metadata?.sound);
-    
-      //NOTE - Audio error handler
-      const playPromise = audioRef.current.play();
-      if (playPromise) {
-        playPromise
-          .catch(error => {
-            if (error.name === 'NotAllowedError') {
-              console.debug('Playback prevented by browser policy');
-            } else if (error.name === 'AbortError') {
-              console.debug('Playback interrupted by pause');
-            } else {
-              console.debug('Unknown error:', error);
-            }
-          });
-      }
-      
-    }
-    else{
-      audioRef.current.currentTime = 0;
-    }
+  // Guard Clause: If the ref hasn't attached to the element yet, exit early
+  if (!audioRef.current) return;
 
-    
-  });
-
+  audioRef.current.pause();
+  
+  if(storyID !== -1 && data[currentStory]){
+    setCurrentSrc(data[currentStory].metadata.sound);
+  
+    const playPromise = audioRef.current.play();
+    if (playPromise) {
+      playPromise.catch(error => {
+        console.debug('Playback error:', error.name);
+      });
+    }
+  } else {
+    audioRef.current.currentTime = 0;
+  }
+});
 
 
     // function mSearch(val){
@@ -141,7 +131,7 @@ const API_URL = import.meta.env.VITE_API_BASE_URL;
               <h2 className="isolate text-black text-3xl font-bold sm:text-4xl [text-shadow:_1px_0_4px_rgb(255_255_255_/_0.8)]">{storyID === -1 ? coverplaceholder.title : (data[currentStory]?.title || '')}</h2>
               {/* ANCHOR Title and summary */}
                 <div style={{width:`${size.width > 614 ? '600px':'auto'}`}} className="isolate text-black rounded-xl bg-white/70 shadow-lg ring-1 ring-black/5 mx-auto mt-5 p-5">
-                  <p  align="justify">
+                  <p  className="text-justify">
                     {storyID === -1 ? coverplaceholder.summary:(data[currentStory]?.summary || '')}
                   </p>
                 </div>

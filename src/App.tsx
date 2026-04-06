@@ -1,11 +1,15 @@
 
-import { useLayoutEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Routes, Route, BrowserRouter as Router, useLocation } from 'react-router-dom';
 import Home from "./pages/Home";
 import Read from "./pages/Read";
 import NovelChar from "./pages/Novel&Char";
 import List from "./pages/List";
-const Wrapper = ({ children }) => {
+interface WrapperProps {
+  children: React.ReactNode;
+}
+
+const Wrapper = ({ children }: WrapperProps) => {
         const location = useLocation();
       
         useLayoutEffect(() => {
@@ -13,7 +17,7 @@ const Wrapper = ({ children }) => {
           window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
         }, [location.pathname]);
       
-        return children;
+        return <>{children}</>;
       };
 
  function App() {

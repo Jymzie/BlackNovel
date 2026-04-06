@@ -11,10 +11,6 @@ interface NovelItem {
   title: string;
 }
 
-interface NavTextItem {
-  Name: string;
-  to: string;
-}
 function Navigation() {
     const [nav, setNav] = useState(false)
     const [submenu, setSubMenu] = useState(false)
