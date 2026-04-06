@@ -26,7 +26,7 @@ const API_URL = import.meta.env.VITE_API_BASE_URL;
   let [data, setContent] = useState<Novel[]>([]);
   // const {type} = useOrientation()
   const coverplaceholder = {_id: -1, title: 'Black Novel', summary:"A novel who's rich from thy own story..." }
-  var [storyID, SetStory] = useState(-1);
+  var [storyID, SetStory] = useState<string | number>(-1);
   const [displaynov, SetNov] = useState<Novel[]>(data)
   const currentStory = data?.findIndex(item => item._id === storyID) ;
   

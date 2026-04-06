@@ -1,7 +1,7 @@
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import { Link, useLocation } from "react-router-dom";
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useOrientation } from 'react-use';
 import IsIpad from '../components/IsIpad'
 import axios from 'axios';
@@ -10,6 +10,21 @@ import WindowSize from '../components/WindowSize';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
+interface NovelItem {
+  title: string;
+  metadata: {
+    cover: string;
+  };
+}
+
+interface Character {
+  name: string;
+}
+
+interface WikiItem {
+  novel_title: string;
+  characters: Character[];
+}
 // ANCHOR Main
 function Main() {
   const size = WindowSize();
@@ -59,7 +74,7 @@ function Main() {
 
 // ANCHOR Novel List
 function NovelList({ searchValue }: { searchValue: string }) {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<NovelItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -102,7 +117,7 @@ function NovelList({ searchValue }: { searchValue: string }) {
 
 // ANCHOR Wiki List
 function WikiList({ searchValue }: { searchValue: string }) {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<WikiItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -116,15 +131,15 @@ function WikiList({ searchValue }: { searchValue: string }) {
 
   // Filter logic for nested characters
   const filteredWiki = useMemo(() => {
-    if (!searchValue) return data;
-    
-    return data.map(rec => ({
-      ...rec,
-      characters: rec.characters.filter(chars => 
-        chars.name.toUpperCase().includes(searchValue.toUpperCase())
-      )
-    })).filter(index => index.characters.length !== 0);
-  }, [data, searchValue]);
+  if (!searchValue) return data;
+  
+  return data.map((rec: WikiItem) => ({
+    ...rec,
+    characters: rec.characters.filter((chars: Character) => 
+      chars.name.toUpperCase().includes(searchValue.toUpperCase())
+    )
+  })).filter(index => index.characters.length !== 0);
+}, [data, searchValue]);
 
   if (loading) return <p className="text-center">Loading Characters...</p>;
 
@@ -136,7 +151,7 @@ function WikiList({ searchValue }: { searchValue: string }) {
             {item.novel_title}
           </h2>
           <ul>
-            {item.characters.map((chars, x) => (
+            {item.characters.map((chars: Character, x: number) => (
               <Link to={"/wiki?about=" + chars.name} key={x}>
                 <li className="py-1 text-black mx-2 text-xl rounded-lg hover:bg-black hover:text-white hover:[text-shadow:_1px_0_4px_rgb(255_255_255_/_0.8)]">
                   {chars.name}

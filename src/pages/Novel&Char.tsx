@@ -1,20 +1,38 @@
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import { useLocation, useSearchParams, Link } from "react-router-dom";
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import WindowSize from '../components/WindowSize';
 import useMediaQuery from '../components/CustomSize';
-import { useWindowDimensions } from 'react-native';
+// import { useWindowDimensions } from 'react-native';
 import axios from 'axios';
 import enki from '../components/Enkidu';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
+interface NovelData {
+  title: string;
+  summary: string;
+  metadata: {
+    cover: string;
+  };
+  chapters: {
+    chapter_number: number;
+    title: string;
+  }[];
+}
+
+interface CharData {
+  description: Record<string, string>; // e.g., { "backstory": "...", "powers": "..." }
+  metadata: {
+    cover: string;
+  };
+}
 /**
  * Custom hooks for data fetching
  */
 function useNovelData(title: string | null) {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<NovelData | null>(null);;
   useEffect(() => {
     if (!title) return;
     axios.get(`${API_URL}/api/v1/chap?title=${title}`)
@@ -25,7 +43,7 @@ function useNovelData(title: string | null) {
 }
 
 function useCharacterData(char: string | null) {
-  const [data, setContent] = useState(null);
+  const [data, setContent] = useState<CharData | null>(null);;
   useEffect(() => {
     if (!char) return;
     axios.get(`${API_URL}/api/z2/char?char=${char}`)
@@ -50,7 +68,7 @@ function Main() {
   
   const size = WindowSize();
   const isSmallScreen = useMediaQuery('(max-width: 900px)');
-  const { width } = useWindowDimensions();
+  // const { width } = useWindowDimensions();
 
   // 2. DERIVE LOGIC AFTER HOOKS
   const isNovelPage = path === '/novel';
@@ -139,7 +157,7 @@ function CharDetails({ desc, isSmallScreen }: { desc: any, isSmallScreen: boolea
           <h2 className="text-black mb-2 mx-5 font-bold text-3xl [text-shadow:_1px_0_4px_rgb(0_0_0_/_0.8)]">
             {item.toUpperCase()}
           </h2>
-          <p align="justify" className="text-black indent-16 mb-6 mx-5 whitespace-pre-line">
+          <p className="text-black text-justify indent-16 mb-6 mx-5 whitespace-pre-line">
             {desc[item]}
           </p>
         </div>
