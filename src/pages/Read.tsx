@@ -1,7 +1,7 @@
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
-import { useLocation, useNavigate, Link, useSearchParams } from "react-router-dom";
-import React, { useState, useEffect } from 'react';
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import enki from '../components/Enkidu';
 
@@ -111,7 +111,7 @@ function Read({ title, ch }: any) {
 
   return (
     <div>
-      <h1 className="text-4xl font-extrabold mb-10 md:text-5xl text-center">
+      <h1 className="text-4xl font-extrabold mb-10 md:text-5xl text-center text-black ">
         Chapter {ch}: {chapterContent.title}
       </h1>
       

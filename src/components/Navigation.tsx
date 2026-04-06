@@ -1,5 +1,5 @@
 
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Link } from "react-router-dom";
 import { FaChevronDown,FaChevronUp } from 'react-icons/fa';
@@ -7,13 +7,21 @@ import axios from 'axios';
 import enki from './Enkidu'
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
+interface NovelItem {
+  title: string;
+}
+
+interface NavTextItem {
+  Name: string;
+  to: string;
+}
 function Navigation() {
     const [nav, setNav] = useState(false)
     const [submenu, setSubMenu] = useState(false)
 
     const NavTrigger = () => setNav(!nav)
     const SubTrigger = () => setSubMenu(!submenu)
-      let [global, setContent] = useState([]);
+      let [global, setContent] = useState<NovelItem[]>([]);
     useEffect(() => {
         mGetTable();
     }, []);
@@ -63,7 +71,7 @@ function Navigation() {
       ))}
 
       {/* This div also needs to stay centered */}
-      <div className="flex items-center" onMouseEnter={open ? null : handleToggle} onMouseLeave={open ? handleToggle : null}> 
+      <div className="flex items-center" onMouseEnter={open ? undefined : handleToggle} onMouseLeave={open ? handleToggle : undefined}> 
           <Link to={"/novels"}>
               <li className={`rounded-lg cursor-pointer py-4 font-bold px-9 mx-1 [text-shadow:_1px_0_4px_rgb(255_255_255_/_0.8)]
               transition ease-in-out

@@ -1,10 +1,10 @@
 
-import React, { useState, CSSProperties, useEffect, useRef } from 'react'
+import  { useState,  useEffect, useRef } from 'react'
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
-import { useTransition, animated, useSpringRef } from '@react-spring/web';
+import { useTransition, animated} from '@react-spring/web';
 import {Link} from "react-router-dom";
-import { useOrientation } from 'react-use';
+// import { useOrientation } from 'react-use';
 import styles from './styles.module.css';
 import WindowSize from '../components/WindowSize';
 import axios from 'axios';
@@ -13,12 +13,21 @@ import enki from '../components/Enkidu'
 const API_URL = import.meta.env.VITE_API_BASE_URL;
  function App() {
   //NOTE data
+  interface Novel {
+    _id: string | number;
+    title: string;
+    summary: string;
+    metadata: {
+      cover: string;
+      sound: string;
+    };
+  }
   // const data = useContext(GlobalContext)
-  let [data, setContent] = useState([]);
-  const {type} = useOrientation()
+  let [data, setContent] = useState<Novel[]>([]);
+  // const {type} = useOrientation()
   const coverplaceholder = {_id: -1, title: 'Black Novel', summary:"A novel who's rich from thy own story..." }
   var [storyID, SetStory] = useState(-1);
-  const [displaynov, SetNov] = useState(data)
+  const [displaynov, SetNov] = useState<Novel[]>(data)
   const currentStory = data?.findIndex(item => item._id === storyID) ;
   
   const mGetTable = () => {
@@ -48,7 +57,7 @@ const API_URL = import.meta.env.VITE_API_BASE_URL;
     // }, [currentStory]);
   
  
-  const audioRef = useRef(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   //NOTE old to new comparison sample
   // const OldStoryID = useRef();
   // useEffect(() => {
@@ -93,10 +102,10 @@ const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 
 
-    function mSearch(val){
-      let search = data.filter(rec => rec.title.toUpperCase().includes(val.toUpperCase()) )
-      SetNov(search)
-    }
+    // function mSearch(val){
+    //   let search = data.filter(rec => rec.title.toUpperCase().includes(val.toUpperCase()) )
+    //   SetNov(search)
+    // }
 
     const transitions = useTransition(currentStory, {
       key: currentStory,
@@ -129,11 +138,11 @@ const API_URL = import.meta.env.VITE_API_BASE_URL;
       
           <div className="grid container mx-auto pt-28 grid-cols-1 gap-y-8 xl:grid-cols-2 xl:gap-x-16">
             <div className="mx-auto xl:mr-11 h-80 pt-20">
-              <h2 className="isolate text-black text-3xl font-bold sm:text-4xl [text-shadow:_1px_0_4px_rgb(255_255_255_/_0.8)]">{storyID === -1 ? coverplaceholder.title : data?.[currentStory]?.title}</h2>
+              <h2 className="isolate text-black text-3xl font-bold sm:text-4xl [text-shadow:_1px_0_4px_rgb(255_255_255_/_0.8)]">{storyID === -1 ? coverplaceholder.title : (data[currentStory]?.title || '')}</h2>
               {/* ANCHOR Title and summary */}
                 <div style={{width:`${size.width > 614 ? '600px':'auto'}`}} className="isolate text-black rounded-xl bg-white/70 shadow-lg ring-1 ring-black/5 mx-auto mt-5 p-5">
                   <p  align="justify">
-                    {storyID === -1 ? coverplaceholder.summary:data?.[currentStory]?.summary}
+                    {storyID === -1 ? coverplaceholder.summary:(data[currentStory]?.summary || '')}
                   </p>
                 </div>
               

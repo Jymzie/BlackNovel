@@ -1,10 +1,9 @@
 
-import React from "react";
 import { Link } from "react-router-dom";
-import WindowSize from './WindowSize';
+// import WindowSize from './WindowSize';
 
  function Footer() {
-  const size = WindowSize();
+  // const size = WindowSize();
   return (
     <footer className="isolate" style={{background: 'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,0,0,1) 30%, rgba(255,255,255,1) 100%)'}}>
     <div className="mx-auto max-w-screen-xl px-4 py-3 sm:px-6 lg:px-8">

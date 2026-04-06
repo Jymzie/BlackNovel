@@ -1,5 +1,5 @@
 
-import React, { useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { Routes, Route, BrowserRouter as Router, useLocation } from 'react-router-dom';
 import Home from "./pages/Home";
 import Read from "./pages/Read";

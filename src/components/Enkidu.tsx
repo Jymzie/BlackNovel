@@ -2,7 +2,7 @@ import CryptoJS from "crypto-js";
 
 // Vite uses import.meta.env instead of process.env
 // Note: Variable must start with VITE_ in your .env file
-const SECRET_KEY = import.meta.env.VITE_SECRET_KEY;
+
 
 /**
  * Decrypts a CryptoJS AES string back into a JS Object
@@ -11,10 +11,10 @@ const SECRET_KEY = import.meta.env.VITE_SECRET_KEY;
  */
 const enki = (ciphertext) => {
     if (!ciphertext) return null;
-
+    let SECRET_KEY = import.meta.env.VITE_SECRET_KEY;
     // 1. Decrypt to raw bytes
     const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
-    
+    SECRET_KEY = ''
     // 2. Convert bytes to a UTF-8 string
     const decryptedText = bytes.toString(CryptoJS.enc.Utf8);
     
