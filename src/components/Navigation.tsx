@@ -12,7 +12,7 @@ interface NovelItem {
 }
 
 function Navigation() {
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const [nav, setNav] = useState(false)
     const [submenu, setSubMenu] = useState(false)
 
