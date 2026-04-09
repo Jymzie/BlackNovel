@@ -96,7 +96,7 @@ function Read({ title, ch }: any) {
     axios.get(`${API_URL}/api/v2/chap?title=${title}&ch=${ch}`)
       .then(res => {
         setData(enki(res.data));
-        console.log(data)
+        // console.log(data)
         setLoading(false);
       })
       .catch(err => {
