@@ -77,14 +77,16 @@ const get_chapter = async (req, res) => {
     try {
         // 1. Get the string directly from the query
         const titleFromQuery = req.query.title; 
+        const chapter = parseInt(req.query.ch);
         const slugifiedTitle = titleFromQuery.toLowerCase().replace(/ /g, '-');
         const db = await getDb(); 
         
     
         let chapters = await db.collection("chapters")
-            .find(
-                { parent_slug: new RegExp(slugifiedTitle, 'i')}
-            )
+            .find({ 
+                parent_slug: new RegExp(slugifiedTitle, 'i'), 
+                chapter_number: chapter 
+            })
             .sort({ chapter_number: 1 })
             .toArray();
 

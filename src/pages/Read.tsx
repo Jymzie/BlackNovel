@@ -93,18 +93,19 @@ function Read({ title, ch }: any) {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`${API_URL}/api/v2/chap?title=${title}`)
+    axios.get(`${API_URL}/api/v2/chap?title=${title}&ch=${ch}`)
       .then(res => {
         setData(enki(res.data));
+        console.log(data)
         setLoading(false);
       })
       .catch(err => {
         console.error(err);
         setLoading(false);
       });
-  }, [title]); // Fetch when title changes
+  }, [ch]); // Fetch when title changes
 
-  const chapterContent = data?.[ch - 1];
+  const chapterContent = data?.[0];
 
   if (loading) return <div className="text-center py-20 text-2xl">Loading Chapter...</div>;
   if (!chapterContent) return <div className="text-center py-20 text-red-500">Chapter not found.</div>;
