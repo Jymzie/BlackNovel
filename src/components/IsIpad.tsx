@@ -8,7 +8,7 @@ const useIPadDetector = () => {
     useEffect(() => {
       const checkIPad = () => {
         const userAgent = navigator.userAgent.toLowerCase();
-        console.log(userAgent)
+        // console.log(userAgent)
         // iPad-specific detection pattern
         const iPadRegex = /ipad/i;
         setIsIPad(iPadRegex.test(userAgent));
@@ -19,7 +19,7 @@ const useIPadDetector = () => {
   
       return () => window.removeEventListener('resize', checkIPad);
     }, []);
-    console.log(isIPad)
+    // console.log(isIPad)
     return isIPad;
   };
 
