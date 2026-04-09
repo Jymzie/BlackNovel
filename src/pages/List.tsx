@@ -7,6 +7,7 @@ import IsIpad from '../components/IsIpad'
 import axios from 'axios';
 import enki from '../components/Enkidu'
 import WindowSize from '../components/WindowSize';
+import { Loader2 } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -54,7 +55,7 @@ function Main() {
             placeholder="Search..."
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
-            className="text-black w-80 mb-5 mt-40 focus:outline-none rounded-full border-none border-gray-200 pe-10 ps-4 text-sm py-2.5 shadow-sm sm:text-sm"
+            className="text-black w-72 mb-5 mt-40 focus:outline-none rounded-full border-none border-gray-200 pe-10 ps-4 text-sm py-2.5 shadow-sm sm:text-sm"
           />
 
           <div className="rounded-xl bg-white/50 shadow-lg ring-1 ring-black/5 mx-auto pt-10 pb-20 p-8 min-h-96">
@@ -93,7 +94,10 @@ function NovelList({ searchValue }: { searchValue: string }) {
     );
   }, [data, searchValue]);
 
-  if (loading) return <p className="text-center">Loading Novels...</p>;
+  if (loading) return <div className="flex flex-col items-center justify-center text-black text-center py-20 text-2xl">
+    <Loader2 className="h-10 w-10 text-gray-500 animate-spin" />
+    Loading Novels...</div>;
+  
 
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
@@ -141,7 +145,9 @@ function WikiList({ searchValue }: { searchValue: string }) {
   })).filter(index => index.characters.length !== 0);
 }, [data, searchValue]);
 
-  if (loading) return <p className="text-center">Loading Characters...</p>;
+  if (loading) return <div className="flex flex-col items-center justify-center text-black text-center py-20 text-2xl">
+    <Loader2 className="h-10 w-10 text-gray-500 animate-spin" />
+    Loading Characters...</div>;
 
   return (
     <div className="grid grid-cols-1 text-center lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-y-2">

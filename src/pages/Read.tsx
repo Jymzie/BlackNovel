@@ -4,6 +4,7 @@ import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import enki from '../components/Enkidu';
+import { Loader2 } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -107,7 +108,9 @@ function Read({ title, ch }: any) {
 
   const chapterContent = data?.[0];
 
-  if (loading) return <div className="text-center py-20 text-2xl">Loading Chapter...</div>;
+  if (loading) return <div className="flex flex-col items-center justify-center text-black text-center py-20 text-2xl">
+    <Loader2 className="h-10 w-10 text-gray-500 animate-spin" />
+    Loading Chapter...</div>;
   if (!chapterContent) return <div className="text-center py-20 text-red-500">Chapter not found.</div>;
 
   return (

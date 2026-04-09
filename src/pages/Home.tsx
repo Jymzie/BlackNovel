@@ -9,6 +9,7 @@ import styles from './styles.module.css';
 import WindowSize from '../components/WindowSize';
 import axios from 'axios';
 import enki from '../components/Enkidu'
+import { Loader2 } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
  function App() {
@@ -143,13 +144,20 @@ const API_URL = import.meta.env.VITE_API_BASE_URL;
             <div className='mx-auto'>
             
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-               
-                {displaynov.map((item,i) => (
+               {displaynov.length === 0 ? (
+                <div className="col-span-full flex flex-col items-center justify-center text-black text-center py-20 text-2xl">
+                  <Loader2 className="h-10 w-10 text-gray-500 animate-spin mb-4" />
+                  <p className="[text-shadow:_1px_0_4px_rgb(255_255_255_/_0.8)]">Loading...</p>
+                </div>
+               ):(
+                displaynov.map((item,i) => (
                   <Link to={"/novel?title="+item.title} key={i}>
                     <img className="isolate rounded-lg object-cover hover:scale-105 transition ease-in-out delay-150 h-60 w-96" alt={item.title} src={item.metadata.cover+'.webp'}  
                     onMouseEnter={() =>  SetStory(item._id)} onMouseLeave={() => SetStory(coverplaceholder._id)}/>
                   </Link>
-                ))}
+                ))
+               )}
+             
                 
                 
                

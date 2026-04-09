@@ -7,6 +7,7 @@ import useMediaQuery from '../components/CustomSize';
 // import { useWindowDimensions } from 'react-native';
 import axios from 'axios';
 import enki from '../components/Enkidu';
+import { Loader2 } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -74,7 +75,11 @@ function Main() {
   const isNovelPage = path === '/novel';
   const data = isNovelPage ? novelData : charData;
   const displayTitle = isNovelPage ? novelTitle : charName;
+  const [isMounted, setIsMounted] = useState(false);
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   return (
     <div>
       <div className='bg-gradient-to-bl from-slate-600 to-slate-50 bg-cover h-fit min-h-screen'>
@@ -83,7 +88,7 @@ function Main() {
           <div className="mx-auto -mb-9 col-span-4">
             <div className="justify-center flex">
               <img 
-                style={{ height: size.width > 940 ? '30vw' : '300px', objectFit: size.width > 940 ? 'initial' : 'cover' }} 
+                style={{ height: (isMounted && size.width > 940) ? '30vw' : '300px', objectFit: size.width > 940 ? 'initial' : 'cover' }} 
                 className={`rounded-lg ${size.width < 940 ? 'mt-16 w-screen bg-center' : ' h-fit'}`} 
                 alt={displayTitle || "Cover"} 
                 src={data?.metadata?.cover ? `${data.metadata.cover}.webp` : 'favicon.webp'}
@@ -116,7 +121,12 @@ function Main() {
 // ANCHOR Chapter List
 function Chapters({ novel, isSmallScreen }: { novel: any, isSmallScreen: boolean }) {
   const isMidScreen = useMediaQuery('(max-width: 1300px)');
-  
+  if (!novel) return(
+    <div className="col-span-full flex flex-col items-center justify-center text-black text-center py-20 text-2xl">
+    <Loader2 className="h-10 w-10 text-gray-500 animate-spin mb-4" />
+    <p className="[text-shadow:_1px_0_4px_rgb(255_255_255_/_0.8)]">Loading Chapters...</p>
+  </div>
+  )
   return (
     <div className="text-center mx-2">
       <div className="text-black isolate rounded-xl bg-white/70 shadow-lg ring-1 ring-black/5 mx-auto p-5"> 
@@ -146,7 +156,9 @@ function CharDetails({ desc, isSmallScreen }: { desc: any, isSmallScreen: boolea
   if (!desc) {
     return (
       <div className="flex justify-center items-center h-full">
-        <p className="text-gray-500 animate-pulse">Loading character details...</p>
+        <div className="flex flex-col items-center justify-center text-black text-center py-20 text-2xl">
+        <Loader2 className="h-10 w-10 text-gray-500 animate-spin" />
+        Loading character details...</div>;
       </div>
     );
   }
