@@ -86,7 +86,7 @@ function Navigation() {
               </li>
           </Link>
             {open && (
-              <div className="absolute top-16" >
+              <div className="absolute top-16" onMouseEnter={open ? undefined : handleOpen}>
                 <ul className="w-40 h-auto shadow-md rounded-md p-1 border bg-white">
                   {global.map((item, index) => (
                     <Link to={"/novel?title="+item.title}  key={index}>
