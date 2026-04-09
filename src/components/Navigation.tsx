@@ -43,7 +43,7 @@ function Navigation() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
       // Clear any pending close timers if user returns
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      // if (timeoutRef.current) clearTimeout(timeoutRef.current);
       setOpen(true);
     };
 
