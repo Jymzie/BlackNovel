@@ -1,5 +1,5 @@
 
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useRef} from 'react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Link } from "react-router-dom";
 import { FaChevronDown,FaChevronUp } from 'react-icons/fa';
@@ -12,6 +12,7 @@ interface NovelItem {
 }
 
 function Navigation() {
+    const timeoutRef = useRef<any>(null);
     const [nav, setNav] = useState(false)
     const [submenu, setSubMenu] = useState(false)
 
@@ -40,8 +41,17 @@ function Navigation() {
       setNav(false);
     };
     const [open, setOpen] = useState(false);
-    const handleToggle = () => {
-      setOpen((prev) => !prev);
+    const handleOpen = () => {
+      // Clear any pending close timers if user returns
+      // if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      setOpen(true);
+    };
+
+    const handleClose = () => {
+      // Wait 1.5 seconds before setting open to false
+      timeoutRef.current = setTimeout(() => {
+        setOpen(false);
+      }, 500); 
     };
       
     const NavText = [{Name: 'Home', to: '/'},{Name: 'Wiki', to: '/list'}]
@@ -67,7 +77,7 @@ function Navigation() {
       ))}
 
       {/* This div also needs to stay centered */}
-      <div className="flex items-center" onMouseEnter={open ? undefined : handleToggle} onMouseLeave={open ? handleToggle : undefined}> 
+      <div className="flex items-center" onMouseEnter={open ? undefined : handleOpen} onMouseLeave={open ? handleClose : undefined}> 
           <Link to={"/novels"}>
               <li className={`rounded-lg cursor-pointer py-4 font-bold px-9 mx-1 [text-shadow:_1px_0_4px_rgb(255_255_255_/_0.8)]
               transition ease-in-out
@@ -76,7 +86,7 @@ function Navigation() {
               </li>
           </Link>
             {open && (
-              <div className="absolute top-16" >
+              <div className="absolute top-16" onMouseEnter={open ? undefined : handleOpen}>
                 <ul className="w-40 h-auto shadow-md rounded-md p-1 border bg-white">
                   {global.map((item, index) => (
                     <Link to={"/novel?title="+item.title}  key={index}>
