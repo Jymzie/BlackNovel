@@ -22,7 +22,11 @@ function Navigation() {
         mGetTable(); // This will only hit Axios the VERY FIRST time the site loads
     }, [mGetTable]);
 
-    const handleOpen = () => setOpen(true);
+    const handleOpen = () => {
+      // Clear any pending close timers if user returns
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      setOpen(true);
+    };
     const handleClose = () => {
         timeoutRef.current = setTimeout(() => {
             setOpen(false);
