@@ -129,7 +129,7 @@ function Chapters({ novel, isSmallScreen }: { novel: any, isSmallScreen: boolean
   )
   return (
     <div className="text-center mx-2">
-      <div className="text-black isolate rounded-xl bg-white/70 shadow-lg ring-1 ring-black/5 mx-auto p-5"> 
+      <div className="text-black isolate rounded-xl overflow-auto h-52 bg-white/70 shadow-lg ring-1 ring-black/5 mx-auto p-5"> 
         <Synopsis data={novel} />
       </div>
       <div className="mx-3 p-3 overflow-auto bg-gray-500 rounded-md" 
