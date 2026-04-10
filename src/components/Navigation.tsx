@@ -26,6 +26,7 @@ function Navigation() {
       // Clear any pending close timers if user returns
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
       setOpen(true);
+      console.log('puma')
     };
     const handleClose = () => {
         timeoutRef.current = setTimeout(() => {
@@ -65,10 +66,10 @@ function Navigation() {
               </li>
           </Link>
             {open && (
-              <div className="absolute top-16" onMouseEnter={open ? undefined : handleOpen}>
-                <ul className="w-40 h-auto shadow-md rounded-md p-1 border bg-white">
+              <div className="absolute top-14 m-1" >
+                <ul className="w-40 h-auto shadow-md rounded-md p-1 border bg-white" >
                   {global.map((item, index) => (
-                    <Link to={"/novel?title="+item.title}  key={index}>
+                    <Link to={"/novel?title="+item.title}  key={index} >
                       <li
                         className={`font-bold relative flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100 rounded-md`}
                       >
