@@ -157,7 +157,7 @@ function Main() {
       <div className="container mx-auto p-4 lg:p-8">
         <History title={title} ch={ch} totalChapters={totalChapters} />
         
-        <div className="rounded-xl bg-white/70 backdrop-blur-sm shadow-2xl ring-1 ring-black/5 mx-auto pt-10 pb-20 p-6 md:p-12">
+        <div className="rounded-xl bg-white/70 shadow-2xl ring-1 ring-black/5 mx-auto pt-10 pb-20 p-6 md:p-12">
           <Read title={title} ch={ch} />
         </div>
         
