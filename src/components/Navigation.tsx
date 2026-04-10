@@ -26,7 +26,6 @@ function Navigation() {
       // Clear any pending close timers if user returns
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
       setOpen(true);
-      console.log('puma')
     };
     const handleClose = () => {
         timeoutRef.current = setTimeout(() => {
