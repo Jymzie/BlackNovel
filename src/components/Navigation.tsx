@@ -1,61 +1,36 @@
 
-import {useState, useEffect, useRef} from 'react'
+import { useState, useEffect, useRef } from 'react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Link } from "react-router-dom";
-import { FaChevronDown,FaChevronUp } from 'react-icons/fa';
-import axios from 'axios';
-import enki from './Enkidu'
-
-const API_URL = import.meta.env.VITE_API_BASE_URL;
-interface NovelItem {
-  title: string;
-}
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { useNovelStore } from './useStore';
 
 function Navigation() {
     const timeoutRef = useRef<any>(null);
-    const [nav, setNav] = useState(false)
-    const [submenu, setSubMenu] = useState(false)
-
-    const NavTrigger = () => setNav(!nav)
-    const SubTrigger = () => setSubMenu(!submenu)
-      let [global, setContent] = useState<NovelItem[]>([]);
-    useEffect(() => {
-        mGetTable();
-    }, []);
-
-      const mGetTable = () => {
-        // In a real app, ensure your API route starts with / if it's absolute
-        axios.get(`${API_URL}/api/vt/nov`) 
-            .then((res) => {
-               const final = enki(res.data)
-        
-                setContent(final);
-            })
-            .catch(err => console.error(err));
-
-            
-    };
-
-   
-    const NavClose = () => {
-      setNav(false);
-    };
+    const [nav, setNav] = useState(false);
+    const [submenu, setSubMenu] = useState(false);
     const [open, setOpen] = useState(false);
-    const handleOpen = () => {
-      // Clear any pending close timers if user returns
-      // if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      setOpen(true);
+
+    // Get data and fetch function from Zustand
+    const { global, mGetTable } = useNovelStore();
+
+    const NavTrigger = () => setNav(!nav);
+    const SubTrigger = () => setSubMenu(!submenu);
+    const NavClose = () => setNav(false);
+
+    useEffect(() => {
+        mGetTable(); // This will only hit Axios the VERY FIRST time the site loads
+    }, [mGetTable]);
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => {
+        timeoutRef.current = setTimeout(() => {
+            setOpen(false);
+        }, 500);
     };
 
-    const handleClose = () => {
-      // Wait 1.5 seconds before setting open to false
-      timeoutRef.current = setTimeout(() => {
-        setOpen(false);
-      }, 500); 
-    };
-      
-    const NavText = [{Name: 'Home', to: '/'},{Name: 'Wiki', to: '/list'}]
-    const page = window.location.pathname
+    const NavText = [{ Name: 'Home', to: '/' }, { Name: 'Wiki', to: '/list' }];
+    const page = window.location.pathname;
   return (
     
     // Navigation bar on large screen
