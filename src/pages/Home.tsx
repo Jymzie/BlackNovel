@@ -7,11 +7,12 @@ import {Link} from "react-router-dom";
 // import { useOrientation } from 'react-use';
 import styles from './styles.module.css';
 import WindowSize from '../components/WindowSize';
-import axios from 'axios';
-import enki from '../components/Enkidu'
+// import axios from 'axios';
+// import enki from '../components/Enkidu'
 import { Loader2 } from "lucide-react";
+import { useNovelStore } from '../components/useStore';
 
-const API_URL = import.meta.env.VITE_API_BASE_URL;
+// const API_URL = import.meta.env.VITE_API_BASE_URL;
  function App() {
   //NOTE data
   interface Novel {
@@ -24,28 +25,33 @@ const API_URL = import.meta.env.VITE_API_BASE_URL;
     };
   }
   // const data = useContext(GlobalContext)
-  let [data, setContent] = useState<Novel[]>([]);
+  const { global, mGetTable } = useNovelStore();
+  let [data, setContent] = useState<Novel[]>(global);
   // const {type} = useOrientation()
   const coverplaceholder = {_id: -1, title: 'Black Novel', summary:"A novel who's rich from thy own story..." }
   var [storyID, SetStory] = useState<string | number>(-1);
   const [displaynov, SetNov] = useState<Novel[]>(data)
   const currentStory = data?.findIndex(item => item._id === storyID) ;
-  
-  const mGetTable = () => {
-        // In a real app, ensure your API route starts with / if it's absolute
-        axios.get(`${API_URL}/api/vt/nov`) 
-            .then((res) => {
-                const final = enki(res.data)
-                setContent(final);
-                SetNov(final);
-            })
-            .catch(err => console.error(err));
-            
-    };
 
+  // const mGetTable = () => {
+  //       // In a real app, ensure your API route starts with / if it's absolute
+  //       axios.get(`${API_URL}/api/vt/nov`) 
+  //           .then((res) => {
+  //               const final = enki(res.data)
+  //               setContent(final);
+              
+  //           })
+  //           .catch(err => console.error(err));
+            
+  //   };
+
+     useEffect(() => {
+        mGetTable(); // This will only hit Axios the VERY FIRST time the site loads
+    }, [mGetTable]);
     useEffect(() => {
-        mGetTable();
-    }, []);
+        setContent(global);
+        SetNov(global);
+    }, [global]);
     //NOTE watcher sample
     // useEffect(() => {
     //   // This will run every time 'currentStory' changes

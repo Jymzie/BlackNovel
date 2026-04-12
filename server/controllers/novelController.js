@@ -177,32 +177,4 @@ const get_char = async (req, res) => {
     }
 };
 
-const insert_data = async (req, res) => {
-    try {
-        // 2. Await the database instance here as well
-        const db = await getDb(); 
-        let params = req.body;
-        
-        // 3. Use 'db' directly
-        let result = await db.collection("user").find({ age: params.age }).toArray();
-        
-        if (result.length == 0) {
-            await db.collection("user").insertOne({ 
-                name: params.name, 
-                age: params.age 
-            });
-        } else {
-            await db.collection("user").updateOne(
-                { age: params.age }, 
-                { $set: { name: params.name } }
-            );
-        }
-        res.status(500).send('Internal Server Error: 500');
-
-    } catch (err) {
-        // console.error('504 Gateway Timeout');
-        res.status(504).send('504 Gateway Timeout');
-    }
-};
-
-module.exports = { get_novels, get_stories, get_chapter, get_chapcount, insert_data, get_chars, get_char };
+module.exports = { get_novels, get_stories, get_chapter, get_chapcount, get_chars, get_char };

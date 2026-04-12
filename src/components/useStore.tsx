@@ -5,7 +5,13 @@ import enki from './Enkidu';
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 interface NovelItem {
-  title: string;
+   _id: string | number;
+    title: string;
+    summary: string;
+    metadata: {
+      cover: string;
+      sound: string;
+    };
 }
 
 interface NovelState {
