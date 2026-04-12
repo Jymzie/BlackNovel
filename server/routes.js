@@ -11,7 +11,6 @@ router.get("/v3/chap", novelControllers.get_chapcount);
 
 router.get("/z1/char", novelControllers.get_chars);
 router.get("/z2/char", novelControllers.get_char);
-router.post("/sample/res", novelControllers.insert_data);
 
 // Changed from export default to module.exports
 module.exports = router;
